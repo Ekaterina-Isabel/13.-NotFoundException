@@ -1,6 +1,7 @@
 package ru.netology.repository;
 
 import ru.netology.domain.Product;
+import ru.netology.exception.NotFoundException;
 
 public class ProductRepository {
     private Product[] items = new Product[0];       //items - поле, в котором создан Product[] - пустой массив товаров
@@ -28,6 +29,11 @@ public class ProductRepository {
     }
 
     public void removeById(int id) {        //удаляет объект по id
+        Product product = findById(id);
+        if (product == null) {
+            throw new NotFoundException("не найден product c id " + id);
+        }
+
         int lenght = items.length - 1;
         Product[] tmp = new Product[lenght];
         int index = 0;      //index - переменная, номер ячейки куда будем копировать
