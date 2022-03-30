@@ -21,7 +21,7 @@ class ProductRepositoryTest {
     void shouldAddProductsInRepository() {       //добавь продукты в репозиторий
         repository.save(product1);
 
-        Product[] expected = { product1 };
+        Product[] expected = {product1};
         Product[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
     }
