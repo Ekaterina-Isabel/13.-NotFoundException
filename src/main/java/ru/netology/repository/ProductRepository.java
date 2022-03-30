@@ -1,12 +1,18 @@
 package ru.netology.repository;
 
 import ru.netology.domain.Product;
+import ru.netology.exception.AlreadyExistsException;
 import ru.netology.exception.NotFoundException;
 
 public class ProductRepository {
     private Product[] items = new Product[0];       //items - поле, в котором создан Product[] - пустой массив товаров
 
     public void save(Product item) {        //метод добавления нового объекта item в массив
+        Product product = findById(item.getId());
+        if (product != null) {
+            throw new AlreadyExistsException("вы пытаетесь добавить product с id = " + item.getId() + ", который уже существует");
+        }
+
         int lengh = items.length + 1;       //вычисление длинны нового массива = длинна старого массива + 1
         Product[] tmp = new Product[lengh];     //создание нового массива с вычисленной длинной
         System.arraycopy(items, 0, tmp, 0, items.length);       //метод автоматического копирования элементов из старого массива в новый
